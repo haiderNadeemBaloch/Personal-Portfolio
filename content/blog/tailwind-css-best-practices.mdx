@@ -1,0 +1,52 @@
+---
+title: Tailwind CSS Best Practices
+date: 2024-03-10
+excerpt: Learn how to write maintainable and scalable Tailwind CSS code with these best practices.
+---
+
+# Tailwind CSS Best Practices
+
+Tailwind CSS is a utility-first CSS framework that allows you to rapidly build custom user interfaces. Here are some best practices to keep your code maintainable.
+
+## Use Component Classes
+
+Instead of repeating utility classes, create component classes using `@apply`:
+
+```css
+.btn-primary {
+  @apply bg-primary-600 text-white px-4 py-2 rounded-lg;
+}
+```
+
+## Organize Your Classes
+
+Keep your classes organized and readable:
+
+```jsx
+<div className="
+  flex items-center justify-between
+  p-4 bg-white rounded-lg shadow
+  hover:shadow-lg transition-shadow
+">
+```
+
+## Use Custom Configuration
+
+Extend Tailwind's default configuration to match your design system:
+
+```js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#003366',
+      },
+    },
+  },
+};
+```
+
+## Conclusion
+
+Following these best practices will help you write more maintainable Tailwind CSS code and build better user interfaces.
+
