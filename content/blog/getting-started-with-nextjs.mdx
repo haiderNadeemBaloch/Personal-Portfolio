@@ -2,31 +2,75 @@
 title: Getting Started with Next.js 14
 date: 2024-03-15
 excerpt: A comprehensive guide to building modern web applications with Next.js 14 and the App Router.
+tags:
+  - Next.js
+  - App Router
+  - React
+coverImage: https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80
+ogImage: https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80
 ---
 
 # Getting Started with Next.js 14
 
-Next.js 14 introduces exciting new features and improvements that make building React applications even more powerful. In this post, we'll explore the key features and how to get started.
+Next.js 14 introduces exciting new features and improvements that make building React applications even more powerful. In this post, we'll explore the key features and walk through an opinionated setup that takes advantage of the App Router.
+
+> **TL;DR**: use the App Router, lean on Server Components for data fetching, and keep client-side code focused on interactivity.
 
 ## What's New in Next.js 14
 
 Next.js 14 brings several improvements:
 
-- **App Router**: The new routing system provides better performance and developer experience
-- **Server Components**: Built-in support for React Server Components
-- **Improved Performance**: Better optimization and faster builds
+- **App Router**: A file-system router designed for streaming, parallel routes, and instant loading states.
+- **Server Components**: Fetch data without waterfalls and keep the bundle size minimal.
+- **Improved Performance**: Partial prerendering, optimized bundling, and better caching defaults.
+- **MDX & Content**: Streamlined MDX stories within the App Router.
 
-## Getting Started
+## Project Setup
 
-To create a new Next.js project, run:
+Create a new project with the App Router enabled:
 
 ```bash
-npx create-next-app@latest my-app
+npx create-next-app@latest haider-portfolio \
+  --ts --app --src-dir --import-alias "@/*"
 ```
 
-This will set up a new Next.js project with all the necessary dependencies.
+This scaffolds a TypeScript project with opinionated defaults. From there add useful libraries:
 
-## Conclusion
+```bash
+npm install framer-motion reading-time remark-gfm rehype-prism-plus
+```
 
-Next.js 14 is a powerful framework for building modern web applications. With its new features and improvements, it's easier than ever to create fast, scalable applications.
+## Recommended Folder Layout
+
+```plaintext
+app/
+  (marketing)/
+  blog/
+  projects/
+content/
+  blog/
+lib/
+  blog.ts
+  projects.ts
+```
+
+Organize UI pieces under `src/components` and colocate MDX content inside `content/blog`. This keeps the App Router focused on routing and data orchestration.
+
+## Data Fetching Patterns
+
+```tsx
+// app/projects/page.tsx
+import { getProjects } from '@/lib/projects';
+
+export default async function ProjectsPage() {
+  const projects = await getProjects();
+  return <ProjectsGrid projects={projects} />;
+}
+```
+
+Server Components keep the bundle small and let you stream data quickly. Reach for client components (`'use client'`) only when you need interactivity such as animations or event handlers.
+
+## Wrapping Up
+
+Next.js 14 is a powerful framework for building modern web applications. Embrace the App Router, keep data work on the server, and sprinkle interactive islands where they add value. You'll end up with faster builds, lighter bundles, and happier users.
 

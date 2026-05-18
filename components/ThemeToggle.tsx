@@ -1,6 +1,6 @@
 'use client';
 
-import { useTheme } from './ThemeProvider';
+import { useTheme } from '@/src/providers/ThemeProvider';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 

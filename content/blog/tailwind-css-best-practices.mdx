@@ -1,52 +1,77 @@
 ---
 title: Tailwind CSS Best Practices
 date: 2024-03-10
-excerpt: Learn how to write maintainable and scalable Tailwind CSS code with these best practices.
+excerpt: Learn how to write maintainable and scalable Tailwind CSS UI systems with patterns for teams.
+tags:
+  - Tailwind CSS
+  - Design Systems
+  - CSS
+coverImage: https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80
+ogImage: https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80
 ---
 
 # Tailwind CSS Best Practices
 
-Tailwind CSS is a utility-first CSS framework that allows you to rapidly build custom user interfaces. Here are some best practices to keep your code maintainable.
+Tailwind CSS is a utility-first CSS framework that allows you to rapidly build custom user interfaces. These are the conventions I follow to keep large Tailwind codebases readable for collaborators.
 
-## Use Component Classes
+## 1. Codify the Design System
 
-Instead of repeating utility classes, create component classes using `@apply`:
-
-```css
-.btn-primary {
-  @apply bg-primary-600 text-white px-4 py-2 rounded-lg;
-}
-```
-
-## Organize Your Classes
-
-Keep your classes organized and readable:
-
-```jsx
-<div className="
-  flex items-center justify-between
-  p-4 bg-white rounded-lg shadow
-  hover:shadow-lg transition-shadow
-">
-```
-
-## Use Custom Configuration
-
-Extend Tailwind's default configuration to match your design system:
+Keep shades, font stacks, spacing, and component tokens inside `tailwind.config.cjs`. Guard the config like a design system.
 
 ```js
+// tailwind.config.cjs
+const colors = require('tailwindcss/colors');
+
 module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#003366',
+        primary: colors.sky,
+        accent: colors.amber,
       },
     },
   },
 };
 ```
 
-## Conclusion
+## 2. Extract Component Recipes
 
-Following these best practices will help you write more maintainable Tailwind CSS code and build better user interfaces.
+Avoid repeating long class strings. Instead compose component recipes inside a helper or UI layer.
+
+```tsx
+const button = {
+  base: 'inline-flex items-center justify-center rounded-lg font-semibold transition-colors focus-visible-ring',
+  primary: 'bg-primary-600 text-white hover:bg-primary-700',
+  outline: 'border border-primary-600 text-primary-600 hover:bg-primary-50',
+};
+
+export function Button({ variant = 'primary', ...props }) {
+  return <button className={`${button.base} ${button[variant]}`} {...props} />;
+}
+```
+
+## 3. Keep Markup Scannable
+
+Breaking class names onto multiple lines improves diffs and readability:
+
+```jsx
+<div
+  className="
+    flex items-center justify-between
+    rounded-2xl border border-gray-200
+    bg-white/80 p-6 shadow-sm backdrop-blur
+    dark:border-gray-800 dark:bg-gray-900/70
+  "
+>
+  ...
+</div>
+```
+
+## 4. Document Patterns
+
+Maintain a living docs page (Storybook, Ladle, or simple MDX) showcasing every component state. This keeps designers and engineers in sync and creates a playground for QA.
+
+---
+
+Tailwind CSS is a powerful tool for building responsive UI. Treat it like a design system, share conventions, and your team will ship faster without sacrificing polish.
 

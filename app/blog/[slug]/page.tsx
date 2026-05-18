@@ -1,25 +1,28 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import Image from 'next/image';
 import Link from 'next/link';
-import { getBlogPost, getBlogPosts } from '@/lib/blog';
+import { notFound } from 'next/navigation';
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import rehypePrismPlus from 'rehype-prism-plus';
+import { getBlogPost, getBlogSlugs } from '@/lib/blog';
 import { formatDate } from '@/lib/utils';
+import { mdxComponents } from '@/src/components/mdx/MDXComponents';
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://haidernadeem.dev';
 
 interface BlogPostPageProps {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }
 
 export async function generateStaticParams() {
-  const posts = await getBlogPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  const slugs = await getBlogSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const post = await getBlogPost(slug);
+  const post = await getBlogPost(params.slug);
 
   if (!post) {
     return {
@@ -30,48 +33,87 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.excerpt,
+    openGraph: {
+      type: 'article',
+      title: post.title,
+      description: post.excerpt,
+      url: `${SITE_URL}/blog/${post.slug}`,
+      publishedTime: post.date,
+      tags: post.tags,
+      images: [{ url: post.ogImage }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt,
+      images: [post.ogImage],
+    },
   };
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = await params;
-  const post = await getBlogPost(slug);
+  const post = await getBlogPost(params.slug);
 
   if (!post) {
     notFound();
   }
 
   return (
-    <article className="container mx-auto px-4 py-20">
-      <Link
-        href="/blog"
-        className="focus-visible-ring mb-8 inline-flex items-center rounded-md px-2 text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="mr-2 h-5 w-5"
+    <article className="bg-white dark:bg-gray-950">
+      <div className="container mx-auto px-4 py-16">
+        <Link
+          href="/blog"
+          className="focus-visible-ring mb-6 inline-flex items-center text-sm font-semibold text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300"
         >
-          <path d="M19 12H5M12 19l-7-7 7-7" />
-        </svg>
-        Back to Blog
-      </Link>
+          ← Back to Blog
+        </Link>
 
-      <div className="mx-auto max-w-3xl">
-        <h1 className="mb-4 font-heading text-4xl font-bold md:text-5xl">
-          {post.title}
-        </h1>
-        <p className="mb-12 text-lg text-gray-600 dark:text-gray-400">
-          {formatDate(post.date)}
-        </p>
+        <div className="mx-auto max-w-3xl">
+          <div className="mb-6 flex flex-wrap gap-3">
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full bg-primary-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-700 dark:bg-primary-900/40 dark:text-primary-200"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <h1 className="font-heading text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">
+            {post.title}
+          </h1>
+          <div className="mt-4 flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400">
+            <time dateTime={post.date}>{formatDate(post.date)}</time>
+            <span>{post.readingTime}</span>
+          </div>
+          <p className="mt-6 text-lg text-gray-600 dark:text-gray-300">
+            {post.excerpt}
+          </p>
 
-        <div className="prose prose-lg dark:prose-invert max-w-none">
-          <div dangerouslySetInnerHTML={{ __html: post.content }} />
+          {post.coverImage && (
+            <div className="relative mt-10 aspect-[16/9] overflow-hidden rounded-3xl border border-gray-200 shadow-lg dark:border-gray-800">
+              <Image
+                src={post.coverImage}
+                alt={post.title}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 75vw, 50vw"
+                className="object-cover"
+                priority
+              />
+            </div>
+          )}
+
+          <div className="mdx-content prose prose-lg prose-slate dark:prose-invert mt-12 max-w-none">
+            <MDXRemote
+              source={post.content}
+              components={mdxComponents}
+              options={{
+                mdxOptions: {
+                  rehypePlugins: [[rehypePrismPlus, { ignoreMissing: true }]],
+                },
+              }}
+            />
+          </div>
         </div>
       </div>
     </article>

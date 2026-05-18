@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { Header } from '../Header';
-import { ThemeProvider } from '../ThemeProvider';
+import { ThemeProvider } from '@/src/providers/ThemeProvider';
 
 // Mock next/navigation
 jest.mock('next/navigation', () => ({

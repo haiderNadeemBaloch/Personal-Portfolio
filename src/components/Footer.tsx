@@ -1,10 +1,18 @@
 import Link from 'next/link';
 
 const socialLinks = [
-  { name: 'GitHub', href: 'https://github.com', icon: 'github' },
-  { name: 'LinkedIn', href: 'https://linkedin.com', icon: 'linkedin' },
-  { name: 'Twitter', href: 'https://twitter.com', icon: 'twitter' },
-  { name: 'Behance', href: 'https://behance.net', icon: 'behance' },
+  { name: 'GitHub', href: 'https://github.com' },
+  { name: 'LinkedIn', href: 'https://linkedin.com' },
+  { name: 'Twitter', href: 'https://twitter.com' },
+  { name: 'Behance', href: 'https://behance.net' },
+];
+
+const sitemapLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Contact' },
 ];
 
 export function Footer() {
@@ -24,49 +32,19 @@ export function Footer() {
 
           <div>
             <h4 className="mb-4 font-heading text-sm font-semibold uppercase tracking-wider">
-              Quick Links
+              Sitemap
             </h4>
             <ul className="space-y-2" role="list">
-              <li>
-                <Link
-                  href="/about"
-                  className="focus-visible-ring rounded-md px-1 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400"
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/projects"
-                  className="focus-visible-ring rounded-md px-1 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400"
-                >
-                  Projects
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/blog"
-                  className="focus-visible-ring rounded-md px-1 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400"
-                >
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="focus-visible-ring rounded-md px-1 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400"
-                >
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/privacy"
-                  className="focus-visible-ring rounded-md px-1 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400"
-                >
-                  Privacy
-                </Link>
-              </li>
+              {sitemapLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="focus-visible-ring rounded-md px-1 text-sm text-gray-600 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -101,9 +79,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 border-t border-gray-200 pt-8 text-center text-sm text-gray-600 dark:border-gray-800 dark:text-gray-400">
-          <p>
-            © {new Date().getFullYear()} Haider Nadeem. All rights reserved.
-          </p>
+          <p>© 2025 Haider Nadeem. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -4,8 +4,6 @@ import '@/src/styles/globals.css';
 import { ThemeProvider } from '@/src/providers/ThemeProvider';
 import { Header } from '@/src/components/Header';
 import { Footer } from '@/src/components/Footer';
-import { CookieBanner } from '@/src/components/CookieBanner';
-import { AnalyticsPlaceholder } from '@/src/components/AnalyticsPlaceholder';
 import Script from 'next/script';
 
 const headingFont = Plus_Jakarta_Sans({
@@ -122,8 +120,6 @@ export default function RootLayout({
             </main>
             <Footer />
           </div>
-          <CookieBanner />
-          <AnalyticsPlaceholder />
         </ThemeProvider>
       </body>
     </html>

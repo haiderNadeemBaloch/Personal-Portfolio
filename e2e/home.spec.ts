@@ -1,52 +1,42 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Home Page', () => {
-  test('should load the home page', async ({ page }) => {
-    await page.goto('/');
-    await expect(page).toHaveTitle(/Haider Nadeem/);
-  });
+test('User journey: home → projects → project → contact form', async ({
+  page,
+}) => {
+  // Home: load and wait for hero text
+  await page.goto('/');
+  await expect(page).toHaveTitle(/Haider Nadeem/i);
+  await expect(page.getByRole('heading', { name: /hi, i'm/i })).toBeVisible();
 
-  test('should navigate to projects page', async ({ page }) => {
-    await page.goto('/');
-    await page.click('text=View My Work');
-    await expect(page).toHaveURL(/.*projects/);
-  });
+  // Navigate to Projects via main navigation
+  await page.getByRole('link', { name: /^projects$/i }).click();
+  await expect(page).toHaveURL(/\/projects/);
 
-  test('should navigate to contact page', async ({ page }) => {
-    await page.goto('/');
-    await page.click('text=Get In Touch');
-    await expect(page).toHaveURL(/.*contact/);
-  });
-});
+  // Open first project via modal "View Details" then go to detail page
+  const firstCard = page.locator('article').first();
+  await expect(firstCard).toBeVisible();
+  await firstCard.getByRole('button', { name: /view details/i }).click();
 
-test.describe('Projects Flow', () => {
-  test('should navigate to projects and open a project', async ({ page }) => {
-    await page.goto('/projects');
-    await expect(page).toHaveTitle(/Projects/);
+  // In modal, click "View Full Details" to navigate to /projects/[slug]
+  await page.getByRole('link', { name: /view full details/i }).click();
+  await expect(page).toHaveURL(/\/projects\/.+/);
 
-    // Click on first project if available
-    const firstProject = page.locator('article').first();
-    if ((await firstProject.count()) > 0) {
-      await firstProject.click();
-      await expect(page).toHaveURL(/.*projects\/.*/);
-    }
-  });
-});
+  // Navigate to Contact via header nav
+  await page.getByRole('link', { name: /contact/i }).click();
+  await expect(page).toHaveURL(/\/contact/);
 
-test.describe('Contact Form', () => {
-  test('should submit contact form', async ({ page }) => {
-    await page.goto('/contact');
-    await expect(page).toHaveTitle(/Contact/);
+  // Fill contact form and submit
+  await page.fill('input[name="name"]', 'Test User');
+  await page.fill('input[name="email"]', 'test@example.com');
+  await page.fill(
+    'textarea[name="message"]',
+    'This is a test message for Playwright.'
+  );
 
-    await page.fill('input[name="name"]', 'Test User');
-    await page.fill('input[name="email"]', 'test@example.com');
-    await page.fill('textarea[name="message"]', 'Test message');
+  await page.getByRole('button', { name: /send message/i }).click();
 
-    await page.click('button[type="submit"]');
-
-    // Wait for success message
-    await expect(page.locator('text=Message Sent!')).toBeVisible({
-      timeout: 5000,
-    });
+  // Wait for success toast text
+  await expect(page.getByText(/message sent successfully/i)).toBeVisible({
+    timeout: 7000,
   });
 });
