@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { Hero } from '../Hero';
-import { ThemeProvider } from '@/src/providers/ThemeProvider';
+import { ThemeProvider } from '@/providers/ThemeProvider';
 
 // Mock next/link
 jest.mock('next/link', () => {

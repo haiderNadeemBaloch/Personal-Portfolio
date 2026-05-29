@@ -1,7 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-import Link from 'next/link';
 import {
   motion,
   useInView,
@@ -9,16 +7,8 @@ import {
   useTransform,
   animate,
 } from 'framer-motion';
+import { AboutMe } from '@/components/AboutMe';
 import { useEffect, useRef } from 'react';
-
-const containerVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: 'easeOut' },
-  },
-};
 
 const staggerVariants = {
   hidden: { opacity: 0, y: 16 },
@@ -80,128 +70,79 @@ function MetricCard({ label, value, suffix = '+' }: MetricCardProps) {
 
 const experienceTimeline = [
   {
-    period: '2023 — Present',
+    period: '2024 — Present',
     title: 'UI Engineer',
-    company: 'Freelance / Contract',
+    company: 'Qavi Technologies',
     description:
-      'Designing and building interactive, production-ready interfaces for clients using Next.js, TypeScript, and Tailwind CSS.',
+      'Designing and building interactive, production-ready interfaces for clients using Next.js, TypeScript, and Tailwind CSS and other technologies.',
   },
   {
-    period: '2021 — 2023',
-    title: 'Frontend Developer',
-    company: 'Studio & Agency Work',
+    period: '2023 — 2024',
+    title: 'Web Developer',
+    company: 'Freelance',
     description:
-      'Shipped responsive marketing sites, dashboards, and design systems with a strong focus on motion and accessibility.',
+      'Shipped responsive marketing sites, dashboards, and design systems with a strong focus on User Interface and User Experience. Also worked on custom WordPress themes and plugins.',
   },
 ];
 
 const skills = [
-  'Next.js',
-  'React',
-  'TypeScript',
+  'HTML',
+  'CSS',
+  'Sass',
   'Tailwind CSS',
-  'Framer Motion',
-  'Three.js',
-  'Web Accessibility',
-  'Design Systems',
-  'Animation',
-  'Performance',
-  'Node.js',
-  'REST APIs',
+  '3D Animation and scrolling effects',
+  'JavaScript',
+  'Bootstrap 3, 4, 5',
+  'React',
+  'Next.js',
+  'Figma',
+  'Canva Design',
+  'Webflow',
+  'WordPress',
+  'Performance Optimization',
+  'SEO',
+  'Web Accessibility WCAG 2.1, 2.2',
 ];
 
-const education = [
+interface EducationItem {
+  title: string;
+  period: string;
+}
+
+const education: EducationItem[] = [
   {
-    title: 'Bachelors in Computer Science',
-    institution: 'Your University Name',
-    period: '2018 — 2022',
+    title: 'Virtual University of Pakistan (BSCS)',
+    period: '2024 — Present',
   },
   {
-    title: 'Advanced React & TypeScript',
-    institution: 'Online Certifications',
-    period: 'Ongoing',
+    title: 'Jamia Millia Goverment Degree College',
+    period: '2023 - 2024',
+  },
+  {
+    title: 'The Citizen Foundation',
+    period: '2012 - 2023',
   },
 ];
 
 export function AboutContent() {
   return (
     <div className="bg-white dark:bg-gray-950">
-      <div className="container mx-auto px-4 py-20">
-        {/* Hero / Summary */}
-        <motion.section
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-          className="grid gap-10 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] md:items-center"
-          aria-labelledby="about-heading"
-        >
-          <div>
-            <h1
-              id="about-heading"
-              className="mb-4 font-heading text-4xl font-bold tracking-tight text-gray-900 dark:text-white md:text-5xl"
-            >
-              About Me
-            </h1>
-            <p className="mb-6 text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-              I&apos;m Haider Nadeem, a UI Engineer focused on crafting modern,
-              animated, and accessible web experiences. I love turning complex
-              ideas into simple, delightful interfaces that feel fast and
-              polished on every device.
-            </p>
-            <p className="mb-6 text-base leading-relaxed text-gray-600 dark:text-gray-400">
-              Over the past few years, I&apos;ve worked across dashboards,
-              marketing sites, and interactive portfolios—often blending strong
-              visual design with performance-focused engineering. My toolbelt
-              revolves around Next.js, TypeScript, Tailwind CSS, and Framer
-              Motion, with a growing love for 3D experiences powered by
-              Three.js.
-            </p>
-            <p className="text-base leading-relaxed text-gray-600 dark:text-gray-400">
-              Beyond shipping pixels, I care about structure: reusable
-              components, thoughtful API design, and a smooth developer
-              experience. I enjoy collaborating closely with designers and
-              product teams to create interfaces that feel intentional and
-              timeless.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link
-                href="/contact"
-                className="focus-visible-ring inline-flex items-center justify-center rounded-lg bg-primary-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600"
-              >
-                Let&apos;s collaborate
-              </Link>
-              <a
-                href="/resume.pdf"
-                className="focus-visible-ring inline-flex items-center justify-center rounded-lg border border-gray-300 px-6 py-3 text-sm font-semibold text-gray-800 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:text-gray-100 dark:hover:bg-gray-800"
-              >
-                Download résumé
-              </a>
-            </div>
-          </div>
-
-          {/* Portrait */}
-          <div className="flex justify-center md:justify-end">
-            <div className="dark:via-primary-950 relative h-56 w-56 overflow-hidden rounded-full border-4 border-primary-500/20 bg-gradient-to-br from-primary-50 via-accent-50 to-primary-100 shadow-lg dark:border-primary-400/20 dark:from-gray-900 dark:to-accent-900">
-              <Image
-                src="/placeholder.svg"
-                alt="Portrait of Haider Nadeem"
-                fill
-                className="object-cover"
-                sizes="224px"
-                priority
-              />
-            </div>
-          </div>
-        </motion.section>
+      <div className="container mx-auto px-4 py-12 sm:px-8 sm:py-20">
+        <AboutMe
+          embedded
+          headingLevel="h1"
+          headingId="about-heading"
+          animate="onMount"
+          // showResume
+        />
       </div>
 
       {/* Metrics / Counters (intersecting section) */}
       <section
         aria-label="Key metrics"
-        className="dark:to-primary-950 border-y border-gray-100 bg-gradient-to-r from-primary-50 via-white to-accent-50 py-16 dark:border-gray-800 dark:from-gray-950 dark:via-gray-900"
+        className="dark:to-primary-950 border-y border-gray-100 bg-gradient-to-r from-primary-50 via-white to-accent-50 py-12 dark:border-gray-800 dark:from-gray-950 dark:via-gray-900 sm:py-16"
       >
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 sm:px-8">
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="mb-4 font-heading text-2xl font-bold text-gray-900 dark:text-white md:text-3xl">
               A quick snapshot
@@ -213,14 +154,14 @@ export function AboutContent() {
           </div>
           <div className="grid gap-6 md:grid-cols-3">
             <MetricCard label="Projects shipped" value={25} />
-            <MetricCard label="Years experience" value={2} />
+            <MetricCard label="Years experience" value={4} />
             <MetricCard label="Clients collaborated with" value={10} />
           </div>
         </div>
       </section>
 
       {/* Main content sections */}
-      <div className="container mx-auto px-4 py-20">
+      <div className="container mx-auto px-4 py-12 sm:px-8 sm:py-20">
         <div className="grid gap-16 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
           {/* Experience & Education */}
           <div className="space-y-16">
@@ -277,24 +218,21 @@ export function AboutContent() {
                   variants={staggerVariants}
                   className="mb-6 font-heading text-2xl font-bold text-gray-900 dark:text-white md:text-3xl"
                 >
-                  Education & Certifications
+                  Education
                 </motion.h2>
                 <div className="space-y-4">
                   {education.map((item) => (
                     <motion.div
-                      key={item.title}
+                      key={item.title + item.period}
                       variants={staggerVariants}
                       className="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900"
                     >
+                      <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-primary-600 dark:text-primary-400">
+                        {item.period}
+                      </div>
                       <h3 className="text-base font-semibold text-gray-900 dark:text-white">
                         {item.title}
                       </h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">
-                        {item.institution}
-                      </p>
-                      <p className="mt-1 text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
-                        {item.period}
-                      </p>
                     </motion.div>
                   ))}
                 </div>

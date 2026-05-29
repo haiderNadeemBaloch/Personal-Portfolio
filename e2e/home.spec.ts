@@ -12,13 +12,14 @@ test('User journey: home → projects → project → contact form', async ({
   await page.getByRole('link', { name: /^projects$/i }).click();
   await expect(page).toHaveURL(/\/projects/);
 
-  // Open first project via modal "View Details" then go to detail page
-  const firstCard = page.locator('article').first();
-  await expect(firstCard).toBeVisible();
-  await firstCard.getByRole('button', { name: /view details/i }).click();
-
-  // In modal, click "View Full Details" to navigate to /projects/[slug]
-  await page.getByRole('link', { name: /view full details/i }).click();
+  // Open first project detail page from the grid
+  const firstProjectLink = page
+    .locator('article')
+    .first()
+    .getByRole('link')
+    .first();
+  await expect(firstProjectLink).toBeVisible();
+  await firstProjectLink.click();
   await expect(page).toHaveURL(/\/projects\/.+/);
 
   // Navigate to Contact via header nav

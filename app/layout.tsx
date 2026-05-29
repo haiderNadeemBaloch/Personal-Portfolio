@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans, Inter } from 'next/font/google';
-import '@/src/styles/globals.css';
-import { ThemeProvider } from '@/src/providers/ThemeProvider';
-import { Header } from '@/src/components/Header';
-import { Footer } from '@/src/components/Footer';
-import { CookieBanner } from '@/src/components/CookieBanner';
-import { AnalyticsPlaceholder } from '@/src/components/AnalyticsPlaceholder';
+import '@/styles/globals.css';
+import { ThemeProvider } from '@/providers/ThemeProvider';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { CookieBanner } from '@/components/CookieBanner';
+import { AnalyticsPlaceholder } from '@/components/AnalyticsPlaceholder';
 import Script from 'next/script';
 
 const headingFont = Plus_Jakarta_Sans({

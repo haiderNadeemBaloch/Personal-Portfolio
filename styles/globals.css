@@ -30,6 +30,23 @@
   .focus-visible-ring {
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950;
   }
+
+  .about-portrait-orbit {
+    animation: about-portrait-orbit 10s linear infinite;
+  }
+
+  .about-portrait-orbit-slow {
+    animation: about-portrait-orbit 16s linear infinite reverse;
+  }
+}
+
+@keyframes about-portrait-orbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Skip Link Styles */

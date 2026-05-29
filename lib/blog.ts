@@ -23,12 +23,32 @@ const postsDirectory = path.join(process.cwd(), 'content', 'blog');
 const FALLBACK_OG_IMAGE =
   'https://dummyimage.com/1200x630/0f172a/ffffff&text=Haider+Nadeem';
 
+function humanizeSlug(slug: string) {
+  return slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+function deriveTitle(content: string, slug: string) {
+  const match = content.match(/^#\s+(.+)$/m);
+  return match?.[1]?.trim() ?? humanizeSlug(slug);
+}
+
+function deriveExcerpt(content: string) {
+  for (const line of content.split('\n')) {
+    const t = line.trim();
+    if (!t || t.startsWith('#') || t.startsWith('```')) continue;
+    if (t.startsWith('>')) return t.replace(/^>\s*/, '').slice(0, 220);
+    return t.slice(0, 220);
+  }
+  return '';
+}
+
 function parsePost(fileName: string): BlogPost {
   const fullPath = path.join(postsDirectory, fileName);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
   const stats = readingTime(content);
   const slug = fileName.replace(/\.mdx$/, '');
+  const fileDate = fs.statSync(fullPath).mtime.toISOString().split('T')[0];
 
   const tags = Array.isArray(data.tags)
     ? (data.tags as string[])
@@ -36,14 +56,16 @@ function parsePost(fileName: string): BlogPost {
       ? [data.tags]
       : [];
 
+  const coverImage = data.coverImage as string | undefined;
+
   return {
     slug,
-    title: data.title || 'Untitled',
-    date: data.date || new Date().toISOString(),
-    excerpt: data.excerpt || '',
+    title: (data.title as string) || deriveTitle(content, slug),
+    date: (data.date as string) || fileDate,
+    excerpt: (data.excerpt as string) || deriveExcerpt(content),
     tags,
-    coverImage: data.coverImage,
-    ogImage: data.ogImage || data.coverImage || FALLBACK_OG_IMAGE,
+    coverImage,
+    ogImage: coverImage || (data.ogImage as string) || FALLBACK_OG_IMAGE,
     readingTime: stats.text,
     readingTimeMinutes: Math.ceil(stats.minutes),
     content,

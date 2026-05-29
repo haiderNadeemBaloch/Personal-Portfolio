@@ -84,7 +84,7 @@ export default function ContactPage() {
     };
 
   return (
-    <div className="container mx-auto px-4 py-20">
+    <div className="container mx-auto px-4 py-12 sm:px-8 sm:py-20">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -208,19 +208,36 @@ export default function ContactPage() {
           )}
         </form>
 
-        <div className="mt-12 border-t border-gray-200 pt-12 dark:border-gray-800">
-          <h2 className="mb-4 font-heading text-2xl font-semibold">
+        <div className="dark:to-primary-950 mt-12 rounded-2xl border border-gray-100 bg-gradient-to-br from-primary-50 via-white to-accent-50 px-4 py-4 dark:border-gray-800 dark:from-gray-950 dark:via-gray-900 sm:px-8 sm:py-6">
+          <h2 className="mb-6 font-heading text-xl font-semibold">
             Other Ways to Reach Me
           </h2>
-          <p className="text-gray-600 dark:text-gray-400">
-            Email:{' '}
-            <a
-              href="mailto:haider.nadeem7870@gmail.com"
-              className="focus-visible-ring rounded-md px-1 text-primary-600 hover:underline dark:text-primary-400"
-            >
-              haider.nadeem7870@gmail.com
-            </a>
-          </p>
+          <ul className="space-y-4">
+            <li className="text-gray-600 dark:text-gray-400">
+              <span className="font-medium text-gray-700 dark:text-gray-300">
+                Email:{' '}
+              </span>
+              <a
+                href="mailto:haider.nadeem7870@gmail.com"
+                className="focus-visible-ring rounded-md text-primary-600 hover:underline dark:text-primary-400"
+              >
+                haider.nadeem7870@gmail.com
+              </a>
+            </li>
+            <li className="text-gray-600 dark:text-gray-400">
+              <span className="font-medium text-gray-700 dark:text-gray-300">
+                WhatsApp:{' '}
+              </span>
+              <a
+                href="https://wa.me/923047586461"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="focus-visible-ring rounded-md text-primary-600 hover:underline dark:text-primary-400"
+              >
+                +92 304 7586461
+              </a>
+            </li>
+          </ul>
         </div>
 
         {/* Animated success toast */}

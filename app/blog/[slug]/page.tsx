@@ -6,7 +6,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import rehypePrismPlus from 'rehype-prism-plus';
 import { getBlogPost, getBlogSlugs } from '@/lib/blog';
 import { formatDate } from '@/lib/utils';
-import { mdxComponents } from '@/src/components/mdx/MDXComponents';
+import { mdxComponents } from '@/components/mdx/MDXComponents';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://haidernadeem.dev';
 
@@ -60,25 +60,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <article className="bg-white dark:bg-gray-950">
-      <div className="container mx-auto px-4 py-16">
-        <Link
-          href="/blog"
-          className="focus-visible-ring mb-6 inline-flex items-center text-sm font-semibold text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300"
-        >
-          ← Back to Blog
-        </Link>
-
+      <div className="container mx-auto px-4 py-12 sm:px-8 sm:py-16">
         <div className="mx-auto max-w-3xl">
-          <div className="mb-6 flex flex-wrap gap-3">
-            {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full bg-primary-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-700 dark:bg-primary-900/40 dark:text-primary-200"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+          <Link
+            href="/blog"
+            className="focus-visible-ring mb-6 inline-flex items-center text-sm font-semibold text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300"
+          >
+            ← Back to Blog
+          </Link>
+
           <h1 className="font-heading text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">
             {post.title}
           </h1>

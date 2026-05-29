@@ -1,0 +1,84 @@
+---
+title: Everything I Learned About State Management From a Bug I Didn't Write
+date: 2026-05-25
+excerpt: A single dropdown was showing the wrong user's data. The code looked clean. The logic made sense. And it was my team's fault anyway.
+tags:
+  - React
+  - State Management
+  - Frontend Engineering
+coverImage: https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80
+---
+
+The bug report came in on a Tuesday afternoon, worded the way the worst ones always are: *"Sometimes the filter shows someone else's preferences."*
+
+> **Sometimes.** That word should have been my first clue to get a coffee before reading further.
+
+## The Setup
+
+We had a dashboard with a global filter component. Users could save their filter preferences — date ranges, category selections, a few toggles. When you logged in, your saved preferences loaded. Simple enough.
+
+Except every few days, someone would open the dashboard and see filters that weren't theirs.
+
+## What the Code Looked Like
+
+The filter state lived in a Zustand store at the top level. On login, we fetched user preferences and called `setFilters(userPrefs)`. On logout, we called `resetFilters()`.
+
+Clean. Readable. Two functions. The kind of code that gets approved in review without a second look.
+
+```ts
+// Looked fine in isolation
+onLogin: async (user) => {
+  const prefs = await fetchUserPrefs(user.id);
+  useFilterStore.getState().setFilters(prefs);
+},
+
+onOnboardingDefaults: (defaults) => {
+  useFilterStore.getState().setFilters(defaults); // same action, different timing
+},
+```
+
+The bug was in a **third function** nobody thought to check.
+
+## The Actual Problem
+
+We had an onboarding flow that ran the first time a user set up their account. During onboarding, we pre-populated the filters with suggested defaults to show them how the dashboard would look. That was a nice touch.
+
+The issue: that pre-population used the **same store action** as the login flow. And our session management had a race condition — if the onboarding flow hadn't fully resolved before the login preferences fetch returned, whichever promise settled last won.
+
+First-time users sometimes saw their own setup defaults. Returning users, on very fast connections, occasionally had onboarding state flicker in for half a second before their real preferences loaded.
+
+And in one specific edge case — a returning user who had previously done onboarding on a different device — the stale onboarding state from a cached API response **overwrote their live preferences entirely**.
+
+That was the "wrong user data" bug. Not malicious. Not a security issue. Just three correct-looking pieces of code that didn't know about each other.
+
+## What I Actually Learned
+
+### 1. Shared state is a contract, not a convenience
+
+Every time you put something in global state, you're making a promise that all the places reading that state will see a consistent, intentional value. We broke that promise without realizing it because two different features — onboarding and login — were writing to the same key with different assumptions about timing.
+
+The fix wasn't complicated: separate the concerns. Onboarding state lives in its own ephemeral slice. It gets explicitly merged into user preferences only when the user completes setup. Never before.
+
+### 2. "Clean code" and "correct code" are not the same thing
+
+The original code was genuinely clean. Short functions, clear names, easy to follow. But cleanliness is about how code reads. Correctness is about what code does in every context it runs in.
+
+I've started thinking about state actions the way I think about **database transactions** — who else might be writing to this at the same time? What happens if two writes arrive in the wrong order?
+
+### 3. The most dangerous bugs have correct symptoms
+
+The filter was showing user preferences. Just not always the right user's preferences, and not always at the right time. Everything looked like it was working, because most of the time it was.
+
+That's why these bugs survive for so long. The happy path is fine. You only find the problem when you look at the **intersections**.
+
+## How I Review State Code Differently Now
+
+When I'm reviewing anything that touches shared state, I ask:
+
+- Who else writes to this key, anywhere in the codebase?
+- What's the expected sequence of writes, and what happens if it's different?
+- Is this state truly global, or does it just feel convenient to put it there?
+
+That last question is the one I ask most. A lot of bugs aren't about bad logic — they're about state that never should have been shared in the first place.
+
+> **The fix took forty minutes. Understanding the problem took three days.** That gap is where all the real learning lives.

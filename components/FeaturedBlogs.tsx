@@ -2,31 +2,35 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ProjectCard } from '@/components/ProjectCard';
-import type { Project } from '@/lib/projects';
+import { BlogCard } from '@/components/BlogCard';
+import type { BlogPostMeta } from '@/lib/blog';
 import { fadeInUp, listContainerStagger } from '@/lib/animations';
 
-interface FeaturedProjectsProps {
-  projects: Project[];
+interface FeaturedBlogsProps {
+  posts: BlogPostMeta[];
 }
 
-export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
+export function FeaturedBlogs({ posts }: FeaturedBlogsProps) {
+  if (posts.length === 0) {
+    return null;
+  }
+
   return (
     <section
-      id="featured-projects"
-      className="bg-white py-20 dark:bg-gray-950"
-      aria-labelledby="featured-projects-heading"
+      id="featured-blogs"
+      className="bg-white py-12 dark:bg-gray-950 sm:py-20"
+      aria-labelledby="featured-blogs-heading"
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 sm:px-8">
         <motion.h2
-          id="featured-projects-heading"
+          id="featured-blogs-heading"
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           className="mb-12 text-center font-heading text-3xl font-bold text-gray-900 dark:text-white md:text-4xl lg:text-5xl"
         >
-          Featured Projects
+          Featured Blogs
         </motion.h2>
         <motion.div
           variants={listContainerStagger(0.1, 0.2)}
@@ -35,8 +39,8 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
           viewport={{ once: true }}
           className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
-          {projects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
+          {posts.map((post) => (
+            <BlogCard key={post.slug} post={post} />
           ))}
         </motion.div>
         <motion.div
@@ -47,10 +51,10 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
           className="mt-12 text-center"
         >
           <Link
-            href="/projects"
+            href="/blog"
             className="focus-visible-ring inline-block rounded-lg bg-primary-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600"
           >
-            View All Projects
+            View All Blogs
           </Link>
         </motion.div>
       </div>

@@ -12,7 +12,7 @@ export default async function ProjectsPage() {
   const projects = await getProjects();
 
   return (
-    <div className="container mx-auto px-4 py-20">
+    <div className="container mx-auto px-4 py-12 sm:px-8 sm:py-20">
       <h1 className="mb-12 text-center font-heading text-4xl font-bold md:text-5xl">
         My Projects
       </h1>

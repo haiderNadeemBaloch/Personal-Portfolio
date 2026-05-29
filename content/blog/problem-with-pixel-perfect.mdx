@@ -1,0 +1,52 @@
+---
+title: The Problem with Pixel-Perfect (And What I Chase Instead)
+date: 2026-05-18
+excerpt: Pixel-perfect used to be my north star. Then I shipped a button that looked flawless on my MacBook and broke on every Android phone in the room.
+tags:
+  - UI/UX
+  - Frontend Engineering
+  - Design
+coverImage: https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80
+---
+
+Three years ago, I would spend forty minutes arguing with a designer over a 2px margin discrepancy. I thought that was professionalism. It wasn't. It was fear — fear that anything less than exact meant failure.
+
+Here's the uncomfortable truth I've landed on: **pixel-perfect is a myth**, and chasing it costs you the things that actually matter.
+
+## When "Perfect" Ships Broken
+
+I was building a component library for a fintech product. The Figma file was immaculate. I matched every shadow, every radius, every spacing token down to the decimal. QA passed on Chrome. Stakeholders loved the demo.
+
+Then we handed devices to real users.
+
+On a mid-range Android phone, our custom checkbox wasn't tappable — the hit area was 18px, and the finger needed at least 44px. On a Windows laptop at 125% zoom, our carefully spaced navigation collapsed. On Safari iOS, a font we'd loaded from Google Fonts flashed white for 800ms before rendering.
+
+> **The lesson:** Pixel-perfect on one screen. Unusable on three others.
+
+## What Designers Actually Need From Engineers
+
+After working closely with product designers across three companies, I've realized what they actually want isn't a 1:1 clone of their static mockup. What they want is the **intention preserved across every context**.
+
+They want the hierarchy to feel right. They want the interaction to feel responsive. They want the emotion of the component — the confidence of a primary button, the subtlety of a disabled state — to come through.
+
+That's a translation problem, not a copy problem.
+
+When I stopped asking "does this match the file?" and started asking **"does this communicate the same thing?"** — my relationship with designers changed completely. Reviews got faster. Fewer revision cycles. More trust.
+
+## The Metric I Use Instead
+
+I now judge UI quality by three questions:
+
+1. **Does it hold at every breakpoint?** — Not just mobile and desktop. The weird 780px tablet-ish viewport that nobody designs for but half your users hit.
+2. **Does it survive user chaos?** — What happens when someone pastes 400 characters into a field designed for 40? Does your card break when the product name is in Korean?
+3. **Does the interaction feel inevitable?** — Not fancy. Not impressive. Just... right. Like it couldn't work any other way.
+
+Pixel-perfect ignores all three. It only cares about one moment in time, in one browser, at one resolution, with ideal data.
+
+## The Shift That Changed My Work
+
+The moment I started treating Figma files as **communication artifacts rather than contracts**, everything improved. I started annotating components with edge case questions before building. I started flagging layout assumptions during design review, not after QA.
+
+And honestly? The designers I work with appreciated it. Nobody wants to be the person whose "perfect" design fell apart in production.
+
+> **The goal was never matching pixels.** The goal was always making something that works for people. Those are different problems — and only one of them matters.

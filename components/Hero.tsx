@@ -37,7 +37,7 @@ export function Hero() {
         </div>
       )}
 
-      <div className="container relative z-10 mx-auto px-4 py-20 text-center">
+      <div className="container relative z-10 mx-auto px-4 py-12 text-center sm:px-8 sm:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -50,9 +50,9 @@ export function Hero() {
             </span>
           </h1>
           <p className="mb-8 text-xl text-gray-700 dark:text-gray-300 md:text-2xl">
-            UI Engineer — Crafting modern, responsive & animated web experiences
+            UI Engineer — Crafting Modern, Responsive & Animated Web Experiences
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-8 sm:gap-4">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
                 href="/projects"
