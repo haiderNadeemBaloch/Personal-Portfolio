@@ -9,7 +9,6 @@ test('User journey: home → projects → project → contact form', async ({
   await expect(page.getByRole('heading', { name: /hi, i'm/i })).toBeVisible();
 
   // Navigate to Projects via main navigation
-  // await page.getByRole('link', { name: /^projects$/i }).click();
   await page
     .getByLabel('Main navigation')
     .getByRole('link', { name: /^projects$/i })
@@ -27,8 +26,11 @@ test('User journey: home → projects → project → contact form', async ({
   await firstProjectLink.click();
   await expect(page).toHaveURL(/\/projects\/.+/);
 
-  // Navigate to Contact via header nav
-  await page.getByRole('link', { name: /contact/i }).click();
+  // Navigate to Contact via main navigation
+  await page
+    .getByLabel('Main navigation')
+    .getByRole('link', { name: /contact/i })
+    .click();
   await expect(page).toHaveURL(/\/contact/);
 
   // Fill contact form and submit
