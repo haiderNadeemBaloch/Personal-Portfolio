@@ -6,7 +6,7 @@ exports[`Footer matches snapshot 1`] = `
     class="border-t border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900"
   >
     <div
-      class="container mx-auto sm:px-8 px-4 pt-12"
+      class="container mx-auto px-4 pt-12 sm:px-8"
     >
       <div
         class="grid grid-cols-1 gap-8 md:grid-cols-3"
@@ -139,7 +139,9 @@ exports[`Footer matches snapshot 1`] = `
         class="mt-8 border-t border-gray-200 py-8 text-center text-sm text-gray-600 dark:border-gray-800 dark:text-gray-400"
       >
         <p>
-          © 2026 Haider Nadeem. All rights reserved.
+          © 
+          2026
+           Haider Nadeem. All rights reserved.
         </p>
       </div>
     </div>
