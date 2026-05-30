@@ -36,7 +36,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             {project.description}
           </p>
           <div className="flex flex-wrap gap-2">
-            {project.technologies.slice(0, 3).map((tech) => (
+            {project.technologies.map((tech) => (
               <span
                 key={tech}
                 className="rounded-full bg-primary-100 px-3 py-1 text-xs font-medium text-primary-700 dark:bg-primary-900 dark:text-primary-300"

@@ -24,14 +24,13 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative flex min-h-[80vh] items-center justify-center overflow-hidden bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
+    <section className="hero-viewport relative flex items-center justify-center overflow-hidden">
+      <div className="hero-mesh absolute inset-0 z-0" aria-hidden="true" />
+      <div className="hero-grid absolute inset-0 z-[1]" aria-hidden="true" />
+
       {mounted && !reducedMotion && (
-        <div className="absolute inset-0 z-0">
-          <Suspense
-            fallback={
-              <div className="dark:from-primary-950 dark:to-accent-950 absolute inset-0 bg-gradient-to-br from-primary-50 to-accent-50" />
-            }
-          >
+        <div className="absolute inset-0 z-[2]">
+          <Suspense fallback={null}>
             <Scene />
           </Suspense>
         </div>

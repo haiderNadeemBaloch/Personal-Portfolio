@@ -4,13 +4,18 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { useRef, useState } from 'react';
 import * as THREE from 'three';
+import { useTheme } from '@/providers/ThemeProvider';
 
 function FloatingShape({
   position,
   shape,
+  defaultColor,
+  hoverColor,
 }: {
   position: [number, number, number];
   shape: 'box' | 'tetrahedron' | 'octahedron';
+  defaultColor: string;
+  hoverColor: string;
 }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
@@ -48,7 +53,7 @@ function FloatingShape({
       scale={hovered ? 1.2 : 1}
     >
       <meshStandardMaterial
-        color={hovered ? '#FFD700' : '#003366'}
+        color={hovered ? hoverColor : defaultColor}
         metalness={0.3}
         roughness={0.4}
       />
@@ -57,6 +62,11 @@ function FloatingShape({
 }
 
 function SceneContent() {
+  const { effectiveTheme } = useTheme();
+  const isDark = effectiveTheme === 'dark';
+  const defaultColor = isDark ? '#3387BF' : '#003366';
+  const hoverColor = isDark ? '#FFCF33' : '#FFD700';
+
   const shapes: Array<{
     position: [number, number, number];
     shape: 'box' | 'tetrahedron' | 'octahedron';
@@ -75,7 +85,13 @@ function SceneContent() {
       <directionalLight position={[10, 10, 5]} intensity={1} />
       <pointLight position={[-10, -10, -5]} intensity={0.5} />
       {shapes.map((shape, i) => (
-        <FloatingShape key={i} position={shape.position} shape={shape.shape} />
+        <FloatingShape
+          key={i}
+          position={shape.position}
+          shape={shape.shape}
+          defaultColor={defaultColor}
+          hoverColor={hoverColor}
+        />
       ))}
       <OrbitControls
         enableZoom={false}

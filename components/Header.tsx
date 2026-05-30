@@ -26,7 +26,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-950/80">
       <nav
-        className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-8"
+        className="container mx-auto flex h-[var(--header-height)] items-center justify-between px-4 sm:px-8"
         aria-label="Main navigation"
       >
         <Link
@@ -225,7 +225,7 @@ function MobileMenu() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute left-0 right-0 top-16 border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950"
+            className="absolute left-0 right-0 top-[var(--header-height)] border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950"
           >
             <ul className="container mx-auto space-y-2 px-4 py-4" role="list">
               {navItems.map((item, index) => {

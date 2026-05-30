@@ -14,139 +14,104 @@ export interface Project {
   date: string;
   role?: string;
   responsibilities?: string[];
+  achievements?: string[];
   gallery?: string[];
 }
 
 export const projects: Project[] = [
   {
-    slug: 'e-commerce-platform',
-    title: 'E-Commerce Platform',
+    slug: 'club-management-platform',
+    title: 'Club Management Platform',
     description:
-      'A modern, full-featured e-commerce platform with cart management, checkout flow, and admin dashboard.',
+      'Front-end for a multi-sport club platform with dashboards, teams, events, inventory, and sponsors.',
     longDescription:
-      'Built with Next.js and TypeScript, this e-commerce platform features a complete shopping experience with product catalog, cart management, secure checkout, and an admin dashboard for inventory management. The platform includes real-time inventory updates, payment integration, and order tracking.',
-    image: '/placeholder.svg',
-    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Stripe', 'Prisma'],
-    tags: ['Frontend', 'UI'],
-    role: 'Frontend Developer',
-    responsibilities: [
-      'Designed and implemented responsive UI components',
-      'Integrated payment processing with Stripe',
-      'Built admin dashboard for inventory management',
-      'Optimized performance and accessibility',
-    ],
-    gallery: ['/placeholder.svg', '/placeholder.svg', '/placeholder.svg'],
-    githubUrl: 'https://github.com',
-    liveUrl: 'https://example.com',
-    featured: true,
-    date: '2024-01-15',
-  },
-  {
-    slug: 'dashboard-analytics',
-    title: 'Analytics Dashboard',
-    description:
-      'Real-time analytics dashboard with interactive charts, data visualization, and customizable widgets.',
-    longDescription:
-      'A comprehensive analytics dashboard that provides real-time insights through interactive charts and data visualizations. Features include customizable widgets, date range filtering, export functionality, and responsive design that works seamlessly across all devices.',
-    image: '/placeholder.svg',
-    technologies: ['React', 'TypeScript', 'D3.js', 'Recharts', 'Tailwind CSS'],
-    tags: ['Frontend', 'UI'],
-    role: 'UI Engineer',
-    responsibilities: [
-      'Created interactive data visualizations',
-      'Implemented responsive dashboard layout',
-      'Built customizable widget system',
-      'Ensured accessibility compliance',
-    ],
-    gallery: ['/placeholder.svg', '/placeholder.svg'],
-    githubUrl: 'https://github.com',
-    liveUrl: 'https://example.com',
-    featured: true,
-    date: '2024-02-20',
-  },
-  {
-    slug: 'portfolio-website',
-    title: 'Portfolio Website',
-    description:
-      'A stunning portfolio website with 3D animations, smooth transitions, and dark mode support.',
-    longDescription:
-      'This portfolio website showcases my work with beautiful 3D animations powered by Three.js, smooth page transitions using Framer Motion, and full dark mode support. The site is fully accessible, SEO-optimized, and performs excellently across all devices.',
-    image: '/placeholder.svg',
+      'Worked on the front-end of a dynamic web platform for managing multi-sport clubs. The platform allows club administrators and members to view team rosters, match schedules, events, and inventory, while showcasing sponsors and individual club portals.',
+    image: '/projects/club-management.png',
     technologies: [
+      'HTML5',
+      'CSS3',
+      'JavaScript',
       'Next.js',
-      'Three.js',
-      'Framer Motion',
-      'TypeScript',
-      'Tailwind CSS',
+      'Bootstrap 5',
+      'Sass',
     ],
     tags: ['Frontend', 'UI'],
-    role: 'Full Stack Developer',
+    role: 'Front-End Developer',
     responsibilities: [
-      'Designed and developed 3D interactive elements',
-      'Implemented smooth page transitions',
-      'Built dark mode support',
-      'Optimized for SEO and performance',
+      'Responsive UI design optimized for desktop, tablet, and mobile',
+      'Interactive dashboards for members, teams, inventory, events, and match schedules',
+      'Event pages and match schedules with real-time updates',
+      'Intuitive forms and tables for adding members and assigning them to teams',
+      'Visually organized inventory and sponsor display modules',
+      'Next.js components, state management, and dynamic rendering for better UX',
     ],
-    gallery: [
-      '/placeholder.svg',
-      '/placeholder.svg',
-      '/placeholder.svg',
-      '/placeholder.svg',
+    achievements: [
+      'Delivered a secure, responsive front-end suitable for multiple user roles',
+      'Created reusable UI components for future scalability',
+      'Enhanced user experience and interactivity without exposing confidential brand information',
     ],
-    githubUrl: 'https://github.com',
-    liveUrl: 'https://example.com',
     featured: true,
-    date: '2024-03-10',
+    date: '2023-08-01',
   },
   {
-    slug: 'webflow-showcase',
-    title: 'Webflow Showcase Site',
+    slug: 'online-scheduling-booking-platform',
+    title: 'Online Scheduling & Booking Platform',
     description:
-      'A beautiful marketing website built with Webflow featuring custom animations and interactions.',
+      'Accessible scheduling and booking UI with WCAG-focused improvements and intuitive workflows.',
     longDescription:
-      'A fully responsive marketing website built entirely in Webflow with custom animations, interactions, and CMS integration. Features include smooth scroll animations, parallax effects, and a fully customizable CMS for content management.',
-    image: '/placeholder.svg',
-    technologies: ['Webflow', 'CSS', 'JavaScript'],
-    tags: ['Webflow', 'UI'],
-    role: 'Webflow Developer',
+      'Contributed to the front-end of a web-based scheduling and booking platform, focusing on accessibility compliance and user-friendly booking interfaces. Enhanced the UI/UX to ensure inclusive access for all users and maintained platform consistency.',
+    image: '/projects/scheduling-booking.png',
+    technologies: ['HTML5', 'CSS3', 'JavaScript', 'PHP', 'Bootstrap'],
+    tags: ['Frontend', 'UI'],
+    role: 'Front-End Developer',
     responsibilities: [
-      'Designed and built custom Webflow interactions',
-      'Implemented CMS collections',
-      'Created responsive layouts',
-      'Optimized for performance',
+      'Accessibility improvements per WCAG 2.1 and 2.2 (keyboard navigation, screen readers, contrast, semantic HTML)',
+      'Booking module UI for scheduling workflows',
+      'UI consistency fixes, responsive layouts, and interactive element refinements',
+      'Cross-device UX with clear feedback and usability focus',
     ],
-    gallery: ['/placeholder.svg', '/placeholder.svg'],
-    liveUrl: 'https://example.com',
-    featured: false,
-    date: '2024-03-25',
+    achievements: [
+      'Delivered a fully accessible front-end aligned with modern accessibility standards',
+      'Improved booking module usability for faster, more intuitive scheduling',
+      'Resolved minor UI/UX issues to improve reliability and overall experience',
+    ],
+    featured: true,
+    date: '2024-02-01',
   },
   {
-    slug: 'wordpress-theme',
-    title: 'Custom WordPress Theme',
+    slug: 'green-building-community-platform',
+    title: 'Green Building Community & Directory Platform',
     description:
-      'A custom WordPress theme with modern design, Gutenberg blocks, and WooCommerce integration.',
+      'Community platform connecting green builders with directory, discussions, articles, and video.',
     longDescription:
-      'A fully custom WordPress theme built from scratch with modern PHP practices, custom Gutenberg blocks, and seamless WooCommerce integration. Features include a flexible page builder, custom post types, and optimized performance.',
-    image: '/placeholder.svg',
-    technologies: ['WordPress', 'PHP', 'JavaScript', 'WooCommerce'],
-    tags: ['WordPress', 'Frontend'],
-    role: 'WordPress Developer',
+      'Contributed to the front-end development and user experience design for a web platform connecting the green building community. The platform includes directories, community interactions, articles, discussions, and video content, providing both members and administrators with an intuitive interface for engagement and content management.',
+    image: '/projects/green-building.png',
+    technologies: ['HTML5', 'CSS3', 'Next.js', 'Bootstrap'],
+    tags: ['Frontend', 'UI'],
+    role: 'Front-End Developer',
     responsibilities: [
-      'Developed custom WordPress theme',
-      'Created custom Gutenberg blocks',
-      'Integrated WooCommerce',
-      'Optimized for SEO and speed',
+      'UI/UX for home, directory, community, articles, discussion boards, and video landing pages',
+      'Responsive layouts, interactive components, and smooth navigation',
+      'Admin pages for home and video modules to support content management',
+      'Dynamic directory and community listings, article and discussion views, and video galleries',
+      'Consistent design patterns, clear visual hierarchy, and intuitive interactions',
     ],
-    gallery: ['/placeholder.svg', '/placeholder.svg', '/placeholder.svg'],
-    githubUrl: 'https://github.com',
-    liveUrl: 'https://example.com',
-    featured: false,
-    date: '2024-04-01',
+    achievements: [
+      'Delivered a scalable, responsive front-end supporting multiple content types',
+      'Improved community engagement through intuitive navigation and interactive UI',
+      'Developed reusable components for directory, articles, discussions, and video sections',
+    ],
+    featured: true,
+    date: '2024-06-01',
   },
 ];
 
 export async function getProjects(): Promise<Project[]> {
   return projects;
+}
+
+export async function getFeaturedProjects(): Promise<Project[]> {
+  return projects.filter((p) => p.featured);
 }
 
 export async function getProject(slug: string): Promise<Project | null> {
